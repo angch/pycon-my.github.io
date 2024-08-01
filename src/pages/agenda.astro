@@ -120,9 +120,7 @@ const groupedTalksDay2 = groupByStartTime(sortedTalksDay2);
                 desc={talk.abstract}
                 room={talk.slot.room.en}
                 time={`${formatDateTime(talk.slot.start)} - ${formatDateTime(talk.slot.end)}`}
-                img={talk.speakers[0]?.avatar}
-                name={talk.speakers[0]?.name}
-                work={talk.speakers[0]?.biography}
+                speakers={talk.speakers}
               />
             ))}
           </div>
@@ -147,9 +145,7 @@ const groupedTalksDay2 = groupByStartTime(sortedTalksDay2);
                 desc={talk.abstract}
                 room={talk.slot.room.en}
                 time={`${formatDateTime(talk.slot.start)} - ${formatDateTime(talk.slot.end)}`}
-                img={talk.speakers[0]?.avatar}
-                name={talk.speakers[0]?.name}
-                work={talk.speakers[0]?.biography}
+                speakers={talk.speakers}
               />
             ))}
           </div>

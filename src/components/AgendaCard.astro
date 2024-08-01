@@ -1,8 +1,17 @@
 ---
 import { marked } from "marked";
-const { title, desc, room, time, img, name, work } = Astro.props;
+type Speaker = {
+  code?: string;
+  name: string;
+  biography: string;
+  avatar?: string;
+  email?: string;
+};
+const { title, desc, room, time, img, name, work, speakers} = Astro.props;
+let speakers2 = speakers as Speaker[];
 const htmlDesc = desc ? marked.parse(desc) : "";
 const htmlWork = work ? marked.parse(work) : "";
+
 ---
 
 <div class="flex flex-col gap-2 p-6 border border-black-600 rounded-lg shadow">
@@ -22,21 +31,28 @@ const htmlWork = work ? marked.parse(work) : "";
             ))
     }
     {desc && <p set:html={htmlDesc} />}
-    {
-        img && (
-            <div class="flex flex-row items-center">
+    {speakers2.map((speaker) => (
+        <div class="flex flex-row items-center">
+            {speaker.avatar && (
                 <div class="avatar">
                     <div class="w-16 rounded-full">
-                        <img src={img} />
+                        <img src={speaker.avatar} />
                     </div>
                 </div>
-                <div class="flex flex-col pl-4">
-                    <p class="font-bold text-black-800">{name}</p>
-                    <p class="text-sm text-black-600">
-                        {work && <p set:html={htmlWork} />}
-                    </p>
+            )}
+            {!speaker.avatar && (
+                <div class="avatar">
+                    <div class="w-16 rounded-full">
+                        <img src="https://placehold.co/400?text=Speaker" />
+                    </div>
                 </div>
+            )}
+            <div class="flex flex-col pl-4">
+                <p class="font-bold text-black-800">{speaker.name}</p>
+                <p class="text-sm text-black-600">
+                    {speaker.biography && <p set:html={speaker.biography} />}
+                </p>
             </div>
-        )
-    }
+        </div>
+      ))}
 </div>
